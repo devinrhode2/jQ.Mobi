@@ -1688,22 +1688,41 @@ return $;
     })(window);
     '$' in window || (window.$ = jq);
     
-    for (var keyParam in $.fn) {
+    function AddToArrayProto(fn, name) {
+      Array.prototype[name] = function() {
+        //loop through array of dom nodes, calling .method on each.
+        if (this.length) { //if not zero
+          var i = 0;
+          for (; i < this.length; i++) {
+            this[i][name](arguments);
+          }
+        } else {
+          this.note = 'The array length was zero, this likely means your selector is bad and isn\'t selecting any elements';
+          return this; //for the [].method call.
+        }
+      };
+    }
+    
+    for (var key in $.fn) {
       (function(key){
         HTMLElement.prototype[key] = $.fn[key];
-        Array.prototype[key] = function() {
-          //loop through array of dom nodes, calling .css on each.
-          if (this.length) { //if not zero
-            var i = 0;
-            for (; i < this.length; i++) {
-              this[i][key](arguments);
-            }
-          }
-        };
-      }(keyParam))
+        AddToArrayProto($.fn[key], key)
+      }(key))
     }
     
     $.fn = HTMLElement.prototype;
-
     
+    $.addPlugin = function (fn, name) {
+      if (typeof name === 'undefined') {
+        if (fn.name === '') {
+          console.error('You need to add a name to your funciton. Instead of addPlugin(funciton() {/*code*/} do addPlugin(function nameOfYourPlugin(){/*code*/}\n\nExiting without adding plugin.');
+          return '"You need to add a name to your function. Instead of addPlugin(funciton() {/*code*/} do addPlugin(function nameOfYourPlugin(){/*code*/}\n\nExiting without adding plugin."';
+        } else {
+          name = fn.name;
+        }
+      }
+      HTMLElement.prototype[name] = fn;
+      AddToArrayProto(fn, name)
+    };
+    window.addPlugin = $.addPlugin;
 }

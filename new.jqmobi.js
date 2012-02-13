@@ -1,12 +1,3 @@
-Array.prototype.css = function() {
-  //loop through array of dom nodes, calling .css on each.
-  if (this.length) { //if not zero
-    var i = 0;
-    for (; i < this.length; i++) {
-      this[i].css(arguments);
-    }
-}
-
 /*
   This is a version of jQ.Mobi that uses prototypes to be based off of the native HTMLElement object, we take essentially 0 performance hit with this strategy, as shown here: http://jsPerf.com/jqm3/41 by @DevinRhode2 on twttr, @gmail, github, stackoverflow, and you can try my username on other random services, it will probably be me :)
 
@@ -1707,28 +1698,30 @@ return $;
           }
         } else {
           this.note = 'The array length was zero, this likely means your selector is bad and isn\'t selecting any elements';
-          return this;
+          return this; //for the [].method call.
         }
       };
     }
     
-    for (var keyParam in $.fn) {
+    for (var key in $.fn) {
       (function(key){
         HTMLElement.prototype[key] = $.fn[key];
         AddToArrayProto($.fn[key], key)
-      }(keyParam))
+      }(key))
     }
     
-    $.fn = HTMLElement.prototype;
+    //$.fn = HTMLElement.prototype;
     
     $.addPlugin = function (fn, name) {
       if (typeof name === 'undefined') {
         if (fn.name === '') {
           console.error('You need to add a name to your funciton. Instead of addPlugin(funciton() {/*code*/} do addPlugin(function nameOfYourPlugin(){/*code*/}\n\nExiting without adding plugin.');
-          return 'AddToArrayProto (and internal func for addPlugin)'
+          return '"You need to add a name to your function. Instead of addPlugin(funciton() {/*code*/} do addPlugin(function nameOfYourPlugin(){/*code*/}\n\nExiting without adding plugin."';
+        } else {
+          name = fn.name;
         }
       }
-      HTMLElement.prototype[fn.name] = fn;
-      AddToArrayProto(fn)
+      HTMLElement.prototype[name] = fn;
+      AddToArrayProto(fn, name)
     };
 }
