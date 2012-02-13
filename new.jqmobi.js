@@ -1698,12 +1698,6 @@ return $;
     '$' in window || (window.$ = jq);
     
     function AddToArrayProto(fn, name) {
-      if (typeof name === 'undefined') {
-        if (fn.name === '') {
-          console.error('You need to add a name to your funciton. Instead of addPlugin(funciton() {/*code*/} do addPlugin(function nameOfYourPlugin(){/*code*/}\n\nExiting without adding plugin.');
-          return 'AddToArrayProto (and internal func for addPlugin)'
-        }
-      }
       Array.prototype[name] = function() {
         //loop through array of dom nodes, calling .method on each.
         if (this.length) { //if not zero
@@ -1721,16 +1715,20 @@ return $;
     for (var keyParam in $.fn) {
       (function(key){
         HTMLElement.prototype[key] = $.fn[key];
-        
-        $.fn[key].name
-        AddToArrayProto(fn)
+        AddToArrayProto($.fn[key], key)
       }(keyParam))
     }
     
     $.fn = HTMLElement.prototype;
     
-    $.addPlugin = function (fn) {
+    $.addPlugin = function (fn, name) {
+      if (typeof name === 'undefined') {
+        if (fn.name === '') {
+          console.error('You need to add a name to your funciton. Instead of addPlugin(funciton() {/*code*/} do addPlugin(function nameOfYourPlugin(){/*code*/}\n\nExiting without adding plugin.');
+          return 'AddToArrayProto (and internal func for addPlugin)'
+        }
+      }
       HTMLElement.prototype[fn.name] = fn;
-      Array.prototype
+      AddToArrayProto(fn)
     };
 }
