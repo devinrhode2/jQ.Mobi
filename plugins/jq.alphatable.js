@@ -4,14 +4,14 @@
  * @copyright AppMobi 2011 - AppMobi
  * 
  */ (function ($) {
-    $.fn["alphatable"] = function (scroller, opts) {
+    addPlugin( function alphatable(scroller, opts) {
         var tmp;
         for (var i = 0; i < this.length; i++) {
             tmp = new alphaTable(this[i], scroller, opts);
 
         }
         return this.length == 1 ? tmp : this;
-    };
+    });
 
 
     var alphaTable = (function () {

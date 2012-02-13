@@ -2,13 +2,13 @@
  * jq.web.css3Animate - css3 animate class for html5 mobile apps
  * @copyright 2011 - AppMobi
  */ (function ($) {
-    $.fn["css3Animate"] = function (opts) {
+    addPlugin( function css3Animate(opts) {
         var tmp;
         for (var i = 0; i < this.length; i++) {
             tmp = new css3Animate(this[i], opts);
         }
         return this.length == 1 ? tmp : this;
-    };
+    });
 
     $["css3AnimateQueue"] = function () {
         return new css3Animate.queue();

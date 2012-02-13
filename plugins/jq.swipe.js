@@ -6,7 +6,7 @@
  */ 
 (function($) {
     var cache = [];
-    $.fn["swipe"] = function(opts) {
+    addPlugin( function swipe(opts) {
         
         if (opts === undefined && this.length > 0) 
         {
@@ -18,7 +18,7 @@
                 cache[this[i].id] = tmp;
         }
         return this.length == 1 ? tmp : this;
-    };
+    });
     var swipeListener = (function() {
         var swipeListener = function(elID, opts) {
             var that = this;

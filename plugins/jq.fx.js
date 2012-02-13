@@ -15,7 +15,7 @@
      * @param {Function} [callback]
      * @title $().fadeOut(time,callback);
      */
-    $.fn.fadeOut = function (time, cb, opc) {
+    addPlugin(function fadeOut(time, cb, opc) {
         if (this.length == 0) return;
         if (!time) time = 0;
         var that = this;
@@ -37,7 +37,7 @@
         }
         this.css3Animate(opts);
         return this;
-    };
+    });
     /**
      * Fade in an element by setting the opacity to 1.  We will set the display property so it's shown
        ```
@@ -48,7 +48,7 @@
      * @param {Function} [callback]
      * @title $().fadeIn(time,callback);
      */
-    $.fn.fadeIn = function (time, callback) {
+    addPlugin( function fadeIn(time, callback) {
 
         if (!time) time = "300ms";
         this.show();
@@ -58,7 +58,7 @@
             that.fadeOut(time, callback, 10);
         }, 1);
         return this;
-    };
+    });
     /**
      * Toggle slide in/out a element based off time.  We handle hiding/showing and keeping the previous height
        ```

@@ -4,7 +4,7 @@
  */ 
  (function($) {
     var cache = [];
-    $.fn["scroller"] = function(opts) {
+    addPlugin( function scroller(opts) {
         var tmp;
         if (opts === undefined && this.length > 0) 
         {
@@ -16,7 +16,7 @@
                 cache[this[i].id] = tmp;
         }
         return this.length == 1 ? tmp : this;
-    };
+    });
     var scroller = (function() {
         if (!window.WebKitCSSMatrix)
             return;

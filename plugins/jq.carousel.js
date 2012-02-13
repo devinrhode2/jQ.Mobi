@@ -5,7 +5,7 @@
  */
 (function($) {
     var cache = [];
-    $.fn.carousel = function(opts) {
+    addPlugin( function carousel(opts) {
         if (opts === undefined && this.length > 0) 
         {
             return cache[this[0].id] ? cache[this[0].id] : null;
@@ -17,7 +17,7 @@
                 cache[this[i].id] = tmp;
         }
         return this.length === 1 ? tmp : this;
-    };
+    });
     
     var carousel = (function() {
         if (!window.WebKitCSSMatrix) {

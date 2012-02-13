@@ -4,7 +4,7 @@
  */ 
 (function($) {
     var cache = [];
-    $.fn["drawer"] = function(opts) {
+    addPlugin( function drawer(opts) {
         var tmp;
         if (opts === undefined && this.length > 0) 
         {
@@ -16,7 +16,7 @@
                 cache[this[i].id] = tmp;
         }
         return this.length == 1 ? tmp : this;
-    };
+    });
     var drawer = (function() {
         if (!window.WebKitCSSMatrix)
             return;
