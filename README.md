@@ -1,3 +1,7 @@
+# A re-wiring of jQ.Mobi to be based off of prototypes.
+
+Here, @DevinRhode2 decided to use the HTMLElement native prototype instead of creating a library object. Sure there may be collisions if you have a frankenstein project, but otherwise you have a 4-6x faster jQuery/jQ.Mobi.
+
 # jqMobi - a HTML5 targeted Javascript Framework
 
 jqMobi is a Javascript framework targeted at HTML5 browsers with a blazingly fast query selector library that supports W3C queries.  
